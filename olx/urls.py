@@ -17,17 +17,18 @@ from django.contrib import admin
 from django.urls import path , include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls.i18n import i18n_patterns
 
 
-urlpatterns = [
+urlpatterns = i18n_patterns (
     path('accounts/', include('django.contrib.auth.urls')),
     path('admin/', admin.site.urls),
     path('products/',include('product.urls', namespace='products')),
     path('accounts/',include('accounts.urls', namespace='accounts')),
-
+    path('customadmin/',include('customadmin.urls', namespace='customadmin')),
     # path('accounts/', include('django.contrib.auth.urls', namespace='accounts')),
     
-]
+)
 
 
 

@@ -2,8 +2,10 @@
 {% block body %}
 
 <form method="post">
-    {% csrf_token %}
+    
+    {% csrf_token %}{{form.errors}}
     {{form.as_p}}
+    
     <input type="submit" value="Sign up">
 </form>
 {% endblock body %}

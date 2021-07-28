@@ -31,7 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'accounts',
+    'accounts', 
+    'customadmin',
     'django.contrib.admin',
      
     'django.contrib.auth',
@@ -42,10 +43,12 @@ INSTALLED_APPS = [
     'product',
     'bootstrap4',
    
+   
     
 ]
 
 MIDDLEWARE = [
+    'product.middleware.BenchmarkMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -53,6 +56,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
+    
 ]
 
 ROOT_URLCONF = 'olx.urls'
@@ -68,6 +73,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.i18n',
+                'product.custom_context_processor.membershiprender',
+                 
             ],
         },
     },
@@ -112,6 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'Asia/Kolkata'
+# TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
@@ -140,8 +149,66 @@ MEDIA_ROOT = os.path.join(BASE_DIR,"media")
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL ='/products'
 LOGOUT_REDIRECT_URL ='/products'
-EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+# EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 AUTHENTICATION_BACKENDS = (
     'accounts.authentication.EmailBackend',
 )
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'mohammad.o@cisinlabs.com'
+EMAIL_HOST_PASSWORD = 'fJAm5PdAX1'
+EMAIL_PORT = 587
+
+import os
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+ }
+
+
+from django.utils.translation import ugettext_lazy as _
+LANGUAGES = (
+    ('en', _('English')),
+    ('ca', _('Catalan')),
+)
+LOCALE_PATHS = (
+    os.path.join(BASE_DIR, 'locale'),
+)
+
+
+CELERY_BROKER_URL = 'amqp://localhost'
+
+
+
+ALLOWED_HOSTS = [ 'localhost', '127.0.0.1','bf86f2f475f0.ngrok.io','c27052b36d01.ngrok.io']
+
+
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'diycloset',
+#         'USER': 'cis',
+#         'PASSWORD': '123',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+
+
+
+
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+#         'LOCATION': 'resel_cache',
+#         # 'TIMEOUT': 60,
+#     }
+# }

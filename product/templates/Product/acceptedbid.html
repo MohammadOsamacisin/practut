@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block body %}
+<h1>Here you accept that Bid</h1>
+
+
+  <h1>Buyer: {{object.user.username}}</h1>
+
+  <h1>Bid Amount: {{object.bidding_amount}}</h1>
+  <h1>Product :{{object.bid_product.name}}</h1>
+  <h1>bid_status :{{object.bid_status}}</h1>
+  
+
+{%endblock body%}

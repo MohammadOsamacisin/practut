@@ -1,6 +1,8 @@
 <!-- Products -->
 {% extends 'base.html' %}
 {% block body %}
+{% load i18n %}
+{% load custom_tags %}
 <div class="total-ads main-grid-border">
 	<div class="container">
 		
@@ -8,7 +10,13 @@
 			<div class="clearfix"></div>
 		</div>
 		<div class="all-categories">
+			<h1>{% trans "Welcome to Resale!"%} {{request.user | capfirst}}</h1>
+			<h2>The Current time is {%current_time "%d/%m/%Y %H:%M:%S %p"%}</h2> 
 			<h3> Select your category and find the perfect ad</h3>
+			<p>Response time: {{ response_time.total_seconds }}</p>
+			<p>Request time: {{ request_time }}</p>
+			<h3> Post ad according to membership {{memberhsipname.membership.name}}</h3> 
+		
 			<ul class="all-cat-list">
 
 			{% for category in category_list %}
@@ -115,16 +123,19 @@
 										<ul class="list">
 										{% for product in product_list %}
 											<a href="{% url 'products:product_detail' product.slug %}">
-												<li>
-													<img src="{{product.images.url}}" title="" alt="" />
+												<li> {%if product.images%}
+ 													<img src="{{product.images.url}}" title="" alt="" />
+													 {%endif%} 
 													<section class="list-left">
 														<h5 class="title">{{product.name}}</h5>
 														<span class="adprice">{{product.price}}</span>
+														<span class="adprice">{{product.status}}</span>
 														<p class="catpath">Mobile Phones »{{product.brand}}</p>
 													</section>
 													<section class="list-right">
 														<span class="date">{{product.created}}</span>
 														<span class="cityname">City name</span>
+														
 													</section>
 													<div class="clearfix"></div>
 												</li>
@@ -137,19 +148,20 @@
 
 							{% if is_paginated  %}
 							<ul class="pagination pagination-sm">
-							{% if page_obj.has_previous %}
-								<li><a href="?page={{ page_obj.previous_page_number }}">Prev</a></li>
+							{% if product_list.has_previous %}
+								<li><a href="?page={{ product_list.previous_page_number }}">Prev</a></li>
 								 {% endif %}
-								{% for i in page_obj.paginator.page_range %}
-      {% if page_obj.number == i %}
+								
+								{% for i in product_list.paginator.page_range %}
+      {% if product_list.number == i %}
         <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
       {% else %}
         <li><a href="?page={{ i }}">{{ i }}</a></li>
       {% endif %}
     {% endfor %}
-								{% comment %} <li><a href="#">{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a></li> {% endcomment %}
-								 {% if page_obj.has_next %}
-								<li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+								{% comment %} <li><a href="#">{{ product_list.number }} of {{ product_list.paginator.num_pages }}</a></li> {% endcomment %}
+								 {% if product_list.has_next %}
+								<li><a href="?page={{ product_list.next_page_number }}">Next</a></li>
 								{% endif %}
 							</ul>
 							{% endif %}

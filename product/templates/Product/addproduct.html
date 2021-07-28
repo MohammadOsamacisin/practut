@@ -3,7 +3,12 @@
 {% load bootstrap4 %}
 {% block body %}
 <h2>Add Product</h2>
-
+{% if messages %}
+			{% for message in messages %}
+			  <div class="alert {% if message.tags %} alert-{{ message.tags }}{% endif %}">{{ message|safe }}</div>
+			{% endfor %}
+		  {% endif %}
+<h1>You have posted {{post_count}} and you membership plan is {{usermembership}} and Active ad count is {{status_count}}</h1>
 		
 			<div class = "container">
             <h2 class="head">Post an Ad</h2>
@@ -13,10 +18,8 @@
             <div class="clearfix"></div>
     {% csrf_token %}
     {{ form.as_p }}
-    {{ formset.management_form }}
-    {% for form in formset %}
-        {{ form }}
-    {% endfor %}
+    
+    
     <div class="clearfix"></div>
     <button type="submit"  >Add</button>
     <div class="clearfix"></div>

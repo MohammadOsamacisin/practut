@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block body %}
+<h1>Here is a list of Bids on your Ads</h1>
+<br> <br>
+
+{% for bid in myallbid_list  %}
+
+
+  <h1>Buyer: {{bid.user.username}}</h1>
+
+  <h1>Bid Amount: {{bid.bidding_amount}}</h1>
+  <h1>Product :{{bid.bid_product.name}}</h1>
+  <h1>Bid_id :{{bid.id}}</h1>
+  <h1>Bid_status :{{bid.bid_status}}</h1>
+
+  <br>
+
+{% endfor %}
+
+{%endblock body%}

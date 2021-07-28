@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% block body %}
+<div class = "container">
+    <h2 class="head">Post Bid</h2>
+    <div class= "post-ad-form">
+    <div class="clearfix"></div>
+    <form method="post"   enctype="multipart/form-data" >
+    <div class="clearfix"></div>
+{% csrf_token %}
+{{ form.as_p }}
+
+
+<div class="clearfix"></div>
+<button type="submit"  >Add</button>
+<div class="clearfix"></div>
+</form>
+    </div>
+    
+    </div>
+{% endblock body %}

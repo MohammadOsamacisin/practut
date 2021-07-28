@@ -1,0 +1,9 @@
+{% extends 'base2.html' %}
+
+{% block body %}
+  <h2>Welcome, {{ user.get_full_name }} <small>{{ user.username }}</small>!</h2>
+  <p>Thanks for confirming your email address!</p>
+  <a class="account" href="{%url 'products:myads' %}"style="margin-right:5px;">My Ads</a>
+  <a class="account" href="{%url 'products:memberships'%}"style="margin-right:5px;">Subscriptions</a>
+  <a class="account" href="{%url 'products:myallbids'%}"style="margin-right:5px;">My All Bids</a>
+{% endblock %}
