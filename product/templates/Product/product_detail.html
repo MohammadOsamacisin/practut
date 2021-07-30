@@ -79,15 +79,17 @@
 						 <script src="https://www.paypal.com/sdk/js?client-id=AQFEV6Y29XVHO7IaXTu3oMxUq6LyrALI9m8kgLdcFYMyYHdF6DkGStWwcAZdYWZ5NLSRl5TwQ46SVQ3D&currency=USD"></script>
 					 
 						 <script>
+
+							var a = "{{object.price}}";
 							 // Render the PayPal button into #paypal-button-container
 							 paypal.Buttons({
-					 
+										
 								 // Set up the transaction
 								 createOrder: function(data, actions) {
 									 return actions.order.create({
 										 purchase_units: [{
 											 amount: {
-												 value: '1'
+												 value: a
 											 }
 										 }]
 									 });
