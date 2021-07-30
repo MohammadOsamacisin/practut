@@ -1,0 +1,15 @@
+### Django ###
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+
+run/
+.env
+db.sqlite3
+
+media/
+static_root/
+
+celerybeat-schedule
