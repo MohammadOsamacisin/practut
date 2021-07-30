@@ -5,7 +5,11 @@
 */__pycache__/*
 __pycache__/
 local_settings.py
+*/*/*/__pycache__/
 
+*/*/__pycache__/
+
+*/__pycache__/
 run/
 .env
 db.sqlite3
