@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<h1>Ad posted by {{request.user}}  is {{post_count}}</h1>
+<div id="myTabContent" class="tab-content">
+							<div role="tabpanel" class="tab-pane fade in active" id="home" aria-labelledby="home-tab">
+								<div>
+									<div id="container">
+										
+										<div class="view-controls-list" id="viewcontrols">
+											<label>view :</label>
+											<a class="gridview"><i class="glyphicon glyphicon-th"></i></a>
+											<a class="listview active"><i class="glyphicon glyphicon-th-list"></i></a>
+										</div>
+										<div class="sort">
+											<div class="sort-by">
+												<label>Sort By : </label>
+												<select>
+													<option value="">Most recent</option>
+													<option value="">Price: Rs Low to High</option>
+													<option value="">Price: Rs High to Low</option>
+												</select>
+											</div>
+										</div>
+										<div class="clearfix"></div>
+										<ul class="list">
+										{% for product in product_list %}
+										
+											<a href="{% url 'products:product_detail' product.slug %}">
+												<li> {%if product.images%}
+ 													<img src="{{product.images.url}}" title="" alt="" />
+													 {%endif%} 
+													<section class="list-left">
+														<h5 class="title">{{product.name}}</h5>
+														<span class="adprice">{{product.price}}</span>
+														<span class="adprice">{{product.status}}</span>
+														<p class="catpath">Mobile Phones »{{product.brand}}</p>
+														
+													</section>
+													<section class="list-right">
+														<span class="date">{{product.created}}</span>
+														<span class="cityname"> City name</span>
+                                                        <a href ="{% url 'products:update_product' product.slug %}" class="btn btn-success" style ="margin-bottom: 10px;margin-top: 10px;">Edit Ad</a> <br>
+                                                
+														<a href ="{% url 'products:delete_ad' product.id %}"class="btn btn-danger" style ="margin-bottom :10px;">Delete Ad</a><br>
+														{% if product.status != 'Complete' %}
+														<a href ="{% url 'products:mybids' product.slug %}" class="btn btn-success" style ="margin-bottom: 10px;"> All Bids</a> <br>
+														{% endif %}
+														
+													</section>
+													<div class="clearfix"></div>
+												</li>
+											</a>
+										{% endfor %}
+										</ul>
+									</div>
+								</div>
+							</div>
+
+							{% if is_paginated  %}
+							<ul class="pagination pagination-sm">
+							{% if page_obj.has_previous %}
+								<li><a href="?page={{ page_obj.previous_page_number }}">Prev</a></li>
+								 {% endif %}
+								{% for i in page_obj.paginator.page_range %}
+      {% if page_obj.number == i %}
+        <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+      {% else %}
+        <li><a href="?page={{ i }}">{{ i }}</a></li>
+      {% endif %}
+    {% endfor %}
+								{% comment %} <li><a href="#">{{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</a></li> {% endcomment %}
+								 {% if page_obj.has_next %}
+								<li><a href="?page={{ page_obj.next_page_number }}">Next</a></li>
+								{% endif %}
+							</ul>
+							{% endif %}
+						</div>
+					</div>
+
+{% endblock body %}
+
+
+
+

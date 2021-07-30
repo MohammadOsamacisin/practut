@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+
+<div class="submit-ad main-grid-border">
+    {% comment %} {% include 'partials/_alert.html' %} {% endcomment %}
+    <h2 class="head">Edit {{object.title}} Ad</h2>
+
+    <div class="post-ad-form">
+        <form action="{% url 'products:update_product' object.slug %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            {{ form.as_p }}
+             <br><br>
+
+            <p class="post-terms">By clicking <strong>update Button</strong> you accept our <a href="terms.html" target="_blank">Terms of Use </a> and <a href="privacy.html" target="_blank">Privacy Policy</a></p>
+                    <input type="submit" value="Update">
+                    <div class="clearfix"></div>
+        </form>
+    </div>
+
+
+{% endblock body %}
+
+
+

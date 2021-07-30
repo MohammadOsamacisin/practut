@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block body %}
+<h1>Here is a list of Bids on your Ads</h1>
+<br> <br>
+
+{% for bid in mybidding_list  %}
+
+
+  <h1>Buyer: {{bid.user.username}}</h1>
+
+  <h1>Bid Amount: {{bid.bidding_amount}}</h1>
+  <h1>Product :{{bid.bid_product.name}}</h1>
+  <h1>Bid_id :{{bid.id}}</h1>
+  <h1>Bid_status :{{bid.bid_status}}</h1>
+  <a href ="{% url 'products:bidstatusupdate' id=bid.id status='Accept' %}" class="btn btn-success" style ="margin-bottom: 10px;margin-top: 10px;">Accept Bid</a> <br>
+  <a href ="{% url 'products:bidstatusupdate' id=bid.id status='Reject' %}" class="btn btn-danger" style ="margin-bottom: 10px;margin-top: 10px;">Reject Bid</a> <br>
+  <br>
+  <br>
+
+{% endfor %}
+
+{%endblock body%}

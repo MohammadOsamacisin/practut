@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% block body %}
+
+<div class="container">
+   <h1> Choose you subscription plan</h1>
+   <h1> Your subscription plan is "{{usermembership.membership.name}}"</h1>
+</div>
+<div class="container">
+{% for sub in subcript  %}
+    {% if  usermembership.membership.name != sub.name %}
+        <a class="account" href="{% url 'products:changemembership' sub.slug %}"style="margin-right:5px;">{{sub.name}} <br> Rs {{sub.price}} </a>
+        <h1>{{request.user.usermembership}}</h1>
+    {% endif %}
+{% endfor %}
+</div>
+<!-- <div class="container">
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+    </form>
+</div> -->
+{% endblock body %}

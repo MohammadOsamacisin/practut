@@ -1,0 +1,17 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: Activate Your My ReselAccount
+From: webmaster@localhost
+To: mohammad.o@cisinlabs.com
+Date: Tue, 22 Jun 2021 06:52:29 -0000
+Message-ID: <162434474989.19660.14667857491060091792@CISM-I-250>
+
+
+Hi rjrobin,
+
+Please click on the link below to confirm your registration:
+
+http://127.0.0.1:3000/accounts/activate/(%3FPMTM%5B0-9A-Za-z_%5C-%5D+)/(%3FPaon91h-21bdf87ac600da076a476e0401c68dd9%5B0-9A-Za-z%5D%7B1,13%7D-%5B0-9A-Za-z%5D%7B1,20%7D)/
+
+-------------------------------------------------------------------------------

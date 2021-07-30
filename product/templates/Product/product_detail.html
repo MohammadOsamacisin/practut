@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block body %}
+	<!--single-page-->
+	<div class="single-page main-grid-border">
+		<div class="container">
+			<ol class="breadcrumb" style="margin-bottom: 5px;">
+				<li><a href="/products">Home</a></li>
+				<li><a href="{% url 'products:productlist' %}">All Ads</a></li>
+				<li class="active"><a href="{%url 'products:productlist'%}">Mobiles</a></li>
+				<li class="active">Mobile Phone</li>
+			</ol>
+			<div class="product-desc">
+				<div class="col-md-7 product-view">
+					<h2>{{object.name}}</h2>
+					<p> <i class="glyphicon glyphicon-map-marker"></i><a href="#">state</a>, <a href="#">city</a>| Added at {{object.created}}, Ad ID: {{object.id}}</p>
+					<div class="flexslider">
+						<ul class="slides">
+						{% for productimage in product.productimages.all   %}
+							<li data-thumb="{{productimage.image.url}}">
+								<img src="{{productimage.image.url}}" />
+							</li>
+							{% endfor %}
+						</ul>
+					</div>
+					<!-- FlexSlider -->
+					  <script defer src="{% static 'js/jquery.flexslider.js'%}"></script>
+					<link rel="stylesheet" href="{% static 'css/flexslider.css'%}" type="text/css" media="screen" />
+
+						<script>
+					// Can also be used with $(document).ready()
+					$(window).load(function() {
+					  $('.flexslider').flexslider({
+						animation: "slide",
+						controlNav: "thumbnails"
+					  });
+					});
+					</script>
+					<!-- //FlexSlider -->
+					<div class="product-details">
+						<h4>Brand : <a href="#">{{object.brand}}</a></h4>
+						<h4>Views : <strong>150</strong></h4>
+						
+						<p><strong>Summary</strong> :{{object.description}} .</p>
+						<p><strong>Owner</strong> :{{object.owner}} .</p>
+					
+					</div>
+				</div>
+				<div class="col-md-5 product-details-grid">
+					<div class="item-price">
+						<div class="product-price">
+							<p class="p-price">Price</p>
+							<h3 class="rate">{{object.price}}</h3>
+							<div class="clearfix"></div>
+						</div>
+						<div class="condition">
+							<p class="p-price">Condition</p>
+							<h4>{{object.condition}}</h4>
+							<div class="clearfix"></div>
+						</div>
+						<div class="itemtype">
+							<p class="p-price">Item Type</p>
+							<h4>{{object.category}}</h4>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+					<div class="interested text-center">
+						<h4>Interested in this Ad?<small> Contact the Seller!</small></h4>
+						
+						 <!-- <a class="account" href="#">Chat with seller</a></p> -->
+						 {% if request.user != object.owner %}
+						 <a class="account" href="{% url 'products:bidding' product.slug %}">Make an Offer</a></p>
+
+
+
+						 <div id="paypal-button-container"></div>
+
+						 <!-- Include the PayPal JavaScript SDK -->
+						 <script src="https://www.paypal.com/sdk/js?client-id=AQFEV6Y29XVHO7IaXTu3oMxUq6LyrALI9m8kgLdcFYMyYHdF6DkGStWwcAZdYWZ5NLSRl5TwQ46SVQ3D&currency=USD"></script>
+					 
+						 <script>
+
+							var a = "{{object.price}}";
+							 // Render the PayPal button into #paypal-button-container
+							 paypal.Buttons({
+										
+								 // Set up the transaction
+								 createOrder: function(data, actions) {
+									 return actions.order.create({
+										 purchase_units: [{
+											 amount: {
+												 value: a
+											 }
+										 }]
+									 });
+								 },
+					 
+								 // Finalize the transaction
+								 onApprove: function(data, actions) {
+									 return actions.order.capture().then(function(orderData) {
+										 // Successful capture! For demo purposes:
+										 console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+										 var transaction = orderData.purchase_units[0].payments.captures[0];
+										 alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+										//  document.location.href ="{% url 'products:successwebhook' %}"
+										 // Replace the above to show a success message within this page, e.g.
+										 // const element = document.getElementById('paypal-button-container');
+										 // element.innerHTML = '';
+										 // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+										 // Or go to another URL:  actions.redirect('thank_you.html');
+									 });
+								 }
+					 
+					 
+							 }).render('#paypal-button-container');
+						 </script>
+
+						{% endif %}
+						 
+						
+						 
+							 
+							
+						
+					</div>
+						<div class="tips">
+						<h4>Safety Tips for Buyers</h4>
+							<ol>
+								<li><a href="#">Contrary to popular belief.</a></li>
+								<li><a href="#">Contrary to popular belief.</a></li>
+								<li><a href="#">Contrary to popular belief.</a></li>
+								<li><a href="#">Contrary to popular belief.</a></li>
+								<li><a href="#">Contrary to popular belief.</a></li>
+								<li><a href="#">Contrary to popular belief.</a></li>
+								<li><a href="#">Contrary to popular belief.</a></li>
+								<li><a href="#">Contrary to popular belief.</a></li>
+								<li><a href="#">Contrary to popular belief.</a></li>
+							</ol>
+						</div>
+				</div>
+			<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+	<!--//single-page-->
+{% endblock body %}

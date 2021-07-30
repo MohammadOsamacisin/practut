@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% block body %}
+
+<div class="container">
+   <h1> Choose you subscription plan</h1>
+   <h1> Your subscription plan is "{{usermembership.membership.name}}"</h1>
+</div>
+{{ form.render }}
+{% endblock body %}

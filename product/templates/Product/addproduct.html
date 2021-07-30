@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load bootstrap4 %}
+{% block body %}
+<h2>Add Product</h2>
+{% if messages %}
+			{% for message in messages %}
+			  <div class="alert {% if message.tags %} alert-{{ message.tags }}{% endif %}">{{ message|safe }}</div>
+			{% endfor %}
+		  {% endif %}
+<h1>You have posted {{post_count}} and you membership plan is {{usermembership}} and Active ad count is {{status_count}}</h1>
+		
+			<div class = "container">
+            <h2 class="head">Post an Ad</h2>
+            <div class= "post-ad-form">
+            <div class="clearfix"></div>
+            <form method="post" enctype="multipart/form-data" >
+            <div class="clearfix"></div>
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    
+    <div class="clearfix"></div>
+    <button type="submit"  >Add</button>
+    <div class="clearfix"></div>
+</form>
+            </div>
+            
+            </div>
+		
+    
+{% endblock body %}
