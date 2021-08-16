@@ -11,3 +11,9 @@ admin.site.register(Memberships)
 admin.site.register(UserMembership)
 admin.site.register(Bidding)
 
+
+
+
+admin.site.site_header = "Resel Admin"
+admin.site.index_title = 'Resel administration'
+admin.site.site_title = 'Resel Admin'
