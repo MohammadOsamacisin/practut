@@ -15,6 +15,7 @@ from .forms import GenerateRandomUserForm
 from .tasks import create_random_user_accounts
 from django.views.decorators.csrf import csrf_exempt
 import json
+# from django.contrib.gis.geoip2 import GeoIP2
 # from django.views.generic import FormView
 # from django.urls import reverse
 # from paypal.standard.forms import PayPalPaymentsForm
@@ -39,7 +40,7 @@ class Productlist(ListView):
     context_object_name = 'product_list'
     paginate_by = 1
     template_name ="Product/product_list.html"
- 
+   
     
     def get_context_data(self,  **kwargs):
         import datetime
@@ -58,9 +59,45 @@ class Productlist(ListView):
             productlist = paginator.page(1)
         except EmptyPage:
             productlist = paginator.page(paginator.num_pages)
+
+        # x_forwarded_for = self.request.META.get('HTTP_X_FORWARDED_FOR')
+        # if x_forwarded_for:
+        #     ip = x_forwarded_for.split(',')[0]
+        # else:
+        #     ip = self.request.META.get('REMOTE_ADDR')
+        # g = GeoIP2()
+        # country = g.country(ip)
+        # city = g.city(ip)
+        # device_type = ""
+        # browser_type = ""
+        # browser_version = ""
+        # os_type = ""
+        # os_version = ""
+        # if self.request.user_agent.is_mobile:
+        #     device_type = "Mobile"
+        # if self.request.user_agent.is_tablet:
+        #     device_type = "Tablet"
+        # if self.request.user_agent.is_pc:
+        #     device_type = "PC"
+    
+        # browser_type = self.request.user_agent.browser.family
+        # browser_version = self.request.user_agent.browser.version_string
+        # os_type = self.request.user_agent.os.family
+        # os_version = self.request.user_agent.os.version_string
+
+
+
         context.update({
             'category_list': Category.objects.all(),
-            'product_list':productlist
+            'product_list':productlist,
+        #     'ip':ip,
+        #      "device_type": device_type,
+        # "browser_type": browser_type,
+        # "browser_version": browser_version,
+        # "os_type":os_type,
+        # "os_version":os_version,
+        # 'country':country,
+        # 'city':city
         })
         return context
    
